@@ -1,16 +1,25 @@
 package com.example;
 
 public class CamionDeReparto extends Transporte {
-    private int numeroEjes;
 
-    public CamionDeReparto(String marca, double capacidadCarga, int numeroEjes) {
-        super(marca, capacidadCarga); // Llama al constructor de Transporte
-        this.numeroEjes = numeroEjes;
+    private boolean tieneRefrigeracion;
+
+    public CamionDeReparto(String idTransporte, double combustible, double capacidadCarga, boolean tieneRefrigeracion) {
+        super(idTransporte, combustible, capacidadCarga);
+        this.tieneRefrigeracion = tieneRefrigeracion;
     }
 
+    // Sobrescritura del método viajar
     @Override
-    public void mostrarInfo() {
-        super.mostrarInfo(); // Imprime la info básica
-        System.out.println("Tipo: Camión | Ejes: " + numeroEjes);
+    public void viajar(int distancia) {
+        double consumo;
+
+        if (tieneRefrigeracion) {
+            consumo = (distancia / 10.0) * 2; // Doble consumo
+        } else {
+            consumo = distancia / 10.0;
+        }
+
+        setCombustible(getCombustible() - consumo);
     }
 }
